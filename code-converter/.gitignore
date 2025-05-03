@@ -1,6 +1,6 @@
-# Ignore the sample codes
-__pycache__
-debug_output
+# Ignore Python cache
+__pycache__/
+*.py[cod]
 
-# Ignore ipynb converter
-# converter.py
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/

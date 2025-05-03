@@ -1,11 +1,28 @@
+# Import third-party libraries
 from PIL import Image
-from pathlib import Path
-from loader import load_assets, BACKGROUND_PATH, FRAME_PATH, ARTWORK_PATH
 
+# Import standard libraries
+from pathlib import Path
+
+# Import project-specific modules
+from load import load_assets, BACKGROUND_PATH, FRAME_PATH, ARTWORK_PATH
+
+# Define constants
 EDGE_SLICE = 40  # Frame slice thickness in pixels
 CURRENT_DIR = Path(__file__).parent
 OUTPUT_PATH = CURRENT_DIR / "output.png"
 
+# Function to slice frame edges into corners and sides
+"""
+Slice a frame image into corners and edges for dynamic resizing.
+
+Args:
+    frame_img (Image.Image): The original frame image.
+    edge_width (int): Width of the edge slices.
+
+Returns:
+    dict: Dictionary containing cropped edge and corner images.
+"""
 def slice_frame_edges(frame_img, edge_width):
     w, h = frame_img.size
 
@@ -32,6 +49,18 @@ def slice_frame_edges(frame_img, edge_width):
         "left_edge": left_edge
     }
 
+# Function to build a dynamic frame around an artwork
+"""
+Construct a dynamic frame image around an artwork using sliced parts.
+
+Args:
+    artwork_size (tuple): Width and height of the artwork.
+    frame_parts (dict): Dictionary of sliced frame images.
+    edge_width (int): Width of the frame edges.
+
+Returns:
+    Image.Image: Composite frame image.
+"""
 def build_frame(artwork_size, frame_parts, edge_width):
     art_w, art_h = artwork_size
     new_w = art_w + 2 * edge_width
@@ -64,10 +93,12 @@ assets = load_assets(
     artwork_path=ARTWORK_PATH
 )
 
-# Generate frame and save
+# Generate frame and save output
 frame_parts = slice_frame_edges(assets["frame"], EDGE_SLICE)
 dynamic_frame = build_frame(assets["artwork"].size, frame_parts, EDGE_SLICE)
-
-# Save output
 dynamic_frame.convert("RGB").save(OUTPUT_PATH)
+
 print(f"[OK] Frame image saved to {OUTPUT_PATH}")
+
+# Print confirmation message
+print("\n✅ frame_builder.py successfully executed")

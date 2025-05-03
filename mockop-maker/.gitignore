@@ -1,0 +1,3 @@
+# Ignore the sample codes
+__pycache__
+debug_output

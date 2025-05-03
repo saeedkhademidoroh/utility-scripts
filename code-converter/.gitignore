@@ -1,0 +1,6 @@
+# Ignore the sample codes
+__pycache__
+debug_output
+
+# Ignore ipynb converter
+# converter.py

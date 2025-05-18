@@ -2,7 +2,6 @@
 import re
 import json
 from pathlib import Path
-from datetime import datetime
 
 
 # Define current directory
